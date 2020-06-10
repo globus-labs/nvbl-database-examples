@@ -14,7 +14,7 @@ import getpass
 # durning requests. Turning this off genereates a warning which the below
 # line surpresses
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-COVID_URL = 'https://covid-ws-01.alcf.anl.gov'
+COVID_URL = 'https://covid-db-01.alcf.anl.gov'
 # email and password of user accessing endpoint
 def get_token(email, password):
         login = COVID_URL + '/rpc/login'
