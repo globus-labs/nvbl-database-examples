@@ -4,6 +4,8 @@ This repository contains programs for using the REST API to access the Postgres 
 
 ## Using the REST API to access the Postgres database
 
+### The `lookup.py` program
+
 The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
 ```
 python lookup.py <from> <to> <from-entity>
@@ -28,7 +30,9 @@ This returns a token, and you can then go:
 setenv TOKEN=<long-token-string>
 ```
 
-The shell script `test_all.sh` runs a simple example of each combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
+### The `test_lookup.sh` shell script
+
+The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
 ## Tables
 
