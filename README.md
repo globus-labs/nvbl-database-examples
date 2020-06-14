@@ -3,11 +3,15 @@ nvbtl-database-examples
 
 ## Using the REST API to access the Postgres database
 
-The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as `python lookup.py <from> <to> <from-entity>` where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `inchi`, and `<from-entity>` is the from string that is to be looked up. For example:
+The program `lookup.py` allows access to the Postgres database tables via the Postgrest API:
+```
+python lookup.py <from> <to> <from-entity>
+```
+where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `smiles`, and `<from-entity>` is the from string that is to be looked up. For example:
 ```
 python lookup.py smiles id C
 ```
-returns:
+returns four identifiers, indicating that there are four entries in the CoV database for the SMILES `C`:
 ```
 ['chm:CHEMBL17564', 'g13:1', 'mcu:MCULE-1431015236', 'pch:PC-281', 'qm9:1']
 ```
@@ -22,6 +26,7 @@ This returns a token, and you can then go:
 setenv TOKEN=<long-token-string>
 ```
 
+The shell script `test_all.sh` runs a simple example of each combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
 ## Tables
 
