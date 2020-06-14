@@ -8,7 +8,7 @@ The program `lookup.py` allows access to the Postgres database tables via the Po
 ```
 python lookup.py <from> <to> <from-entity>
 ```
-where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `smiles`, and `<from-entity>` is the from string that is to be looked up. It writes to standard output a list of zero-or-more entities found in the CoV database. For example:
+where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `smiles`, and `<from-entity>` is the string that is to be looked up. It writes to standard output a list of zero-or-more entities found in the CoV database. For example:
 ```
 python lookup.py smiles id C
 ```
@@ -16,6 +16,7 @@ returns four identifiers, indicating that there are four entries in the CoV data
 ```
 ['chm:CHEMBL17564', 'g13:1', 'mcu:MCULE-1431015236', 'pch:PC-281', 'qm9:1']
 ```
+Symmetrically, a call `python lookup.py id smiles pch:PC-281` returns one SMILES, `['C']`.
 
 Before running the program, you need to create a JWT Token (which must be periodically renewed) and stored it in your environment. To do this, you must have a USERID and PASSWORD:
 
