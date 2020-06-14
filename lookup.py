@@ -33,6 +33,10 @@ if dest not in ['key', 'smiles', 'inchi', 'id']:
     print(f'second argument invalid: {dest}')
     exit(1)
 
+if source==dest:
+    print('Source and destination cannot be equal')
+    exit(1)
+   
 # If source is InChI, we use ChemSpider to convert to InChIKey
 if source=='inchi':
     r = requests.get(f'http://www.chemspider.com/InChI.asmx/InChIToInChIKey?inchi={param}')
