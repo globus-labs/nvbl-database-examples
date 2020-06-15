@@ -12,7 +12,7 @@ The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nin
 
 You can use the REST API directly (e.g., via `curl`) or via the Python program `lookup.py`. 
 
-### Accessing the REST API via `curl`
+### Accessing the nCoV database via `curl`
 
 You first need to obtain a JWT token, e.g. as follows (you must have a USERID and PASSWORD):
 ```
