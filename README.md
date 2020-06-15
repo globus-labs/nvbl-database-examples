@@ -1,4 +1,4 @@
-# nvbtl-database-examples
+# NVBTL Database Examples
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
