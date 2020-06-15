@@ -2,6 +2,8 @@
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
+![](https://github.com/globus-labs/nvbtl-database-examples/blob/master/nCoV.jpg)
+
 ## 1) REST API access to the nCoV database
 
 The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nine methods of the form `<from>2<to>`, where `<from>` is one of `[id, key, smiles]`, `<to>` is one of `[id, inchi, key, smiles]`, and `<from>`!=`<to>`, and:
