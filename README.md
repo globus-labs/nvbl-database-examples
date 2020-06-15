@@ -59,9 +59,13 @@ setenv TOKEN=<long-token-string>
 
 The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
-## Tables
+## Direct access to the nCoV database
 
-The CoV database contains the following tables. These are not directly accessible via the REST API, but we provide information on them here for people who have direct access to the CoV database.
+Some people with access to ALCF computers can access the nCoV database directly. 
+
+### Tables
+
+The nCoV database contains the following tables.
 
 * Four tables for navigating among the ~4.2B entries obtained from the 24 sources listed at https://2019-ncovgroup.github.io/data/, with `id` being a unique per-table number; `md5` = `md5(smiles)`; `smi` a SMILES string; `ide` an identifier, in the form `XXX:identifier` (`XXX` being a three-letter source label, as defined at the web site); `key` an InChIkey; and `inc` an InChI.
   * `m2s(id, md5, smi)`
