@@ -12,7 +12,7 @@ The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nin
 
 You can use the REST API directly (e.g., via `curl`) or via the Python program `lookup.py`. 
 
-### Accessing the nCoV database via `curl`
+### a) Accessing the nCoV database via `curl`
 
 You first need to obtain a JWT token, e.g. as follows (you must have a USERID and PASSWORD):
 ```
@@ -37,7 +37,7 @@ The response is a string containing a list of zero or more "output":<value> pair
 ```
 
 
-### Accessing the nCoV database via the `lookup.py` program
+### b) Accessing the nCoV database via the `lookup.py` program
 
 The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
 ```
@@ -64,7 +64,7 @@ You then store the token in your environment as follows:
 setenv TOKEN=<long-token-string>
 ```
 
-### The `test_lookup.sh` shell script
+### c) The `test_lookup.sh` shell script
 
 The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
