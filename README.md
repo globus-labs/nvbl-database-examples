@@ -4,19 +4,29 @@ This repository contains programs for using the REST API to access the nCoV Post
 
 ## REST API access to the nCoV database
 
-The REST API is accessible at `https://covid-ws-01.alcf.anl.gov/rpc`. It supports nine methods of the form `<from>2<to>`, where `<from>` is one of `[id, key, smiles]`, `<to>` is one of `[id, inchi, key, smiles]`, and `<from>`!=`<to>`, and:
+The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nine methods of the form `<from>2<to>`, where `<from>` is one of `[id, key, smiles]`, `<to>` is one of `[id, inchi, key, smiles]`, and `<from>`!=`<to>`, and:
 * `id` is an identifier used in the nCoV database, which have the form XXX:ident, where XXX is the source name (as listed at https://2019-ncovgroup.github.io/data/) and ident is an identifier used by that source.
 * `inchi` is an InChI
 * `key` is an InChIKey
 * `smiles` is a SMILES
 
+You can use the REST API directly (e.g., via `curl`) or via the Python program `lookup.py`. 
+
 ### Accessing the REST API via `curl`
 
-You can use the REST API directly, for example via `curl`:
+For example:
 ```
 curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --insecure
 ```
-and receive the response as a string containing a list of zero or more "output":<value> pairs. Or you can use the `lookup.py` program, described next.
+The response is a string containing a list of zero or more "output":<value> pairs. For the example just given, this is as follows, as there are four entries in the CoV database for the SMILES `C`:
+```
+ [{"output":"chm:CHEMBL17564"}, 
+ {"output":"g13:1"}, 
+ {"output":"mcu:MCULE-1431015236"}, 
+ {"output":"pch:PC-281"}, 
+ {"output":"qm9:1"}]
+```
+
 
 ### Accessing the nCoV database via the `lookup.py` program
 
@@ -24,7 +34,8 @@ The program `lookup.py` allows access to the Postgres database tables via the Po
 ```
 python lookup.py <from> <to> <from-entity>
 ```
-where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `smiles`, and `<from-entity>` is the string that is to be looked up. It writes to standard output a list of zero-or-more entities found in the CoV database. For example:
+where `<from>` and `<to>` are each one of `id`, `inchi`, `key`, or `smiles`, and `<from-entity>` is the string that is to be looked up. (Note that `<from>=inchi` is supported, with the ChemSpider API used to map from InChI to Key.) 
+It writes to standard output a list of zero-or-more entities found in the CoV database. For example:
 ```
 python lookup.py smiles id C
 ```
