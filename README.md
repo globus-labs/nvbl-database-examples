@@ -2,7 +2,7 @@
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
-## REST API access to the nCoV database
+## 1) REST API access to the nCoV database
 
 The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nine methods of the form `<from>2<to>`, where `<from>` is one of `[id, key, smiles]`, `<to>` is one of `[id, inchi, key, smiles]`, and `<from>`!=`<to>`, and:
 * `id` is an identifier used in the nCoV database, which have the form XXX:ident, where XXX is the source name (as listed at https://2019-ncovgroup.github.io/data/) and ident is an identifier used by that source.
@@ -68,7 +68,7 @@ setenv TOKEN=<long-token-string>
 
 The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
-## Direct access to the nCoV database
+## 2) Direct access to the nCoV database
 
 Some people with access to ALCF computers can access the nCoV database directly. 
 
