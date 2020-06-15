@@ -1,10 +1,24 @@
 # nvbtl-database-examples
 
-This repository contains programs for using the REST API to access the Postgres database. 
+This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
-## Using the REST API to access the Postgres database
+## REST API access to the nCoV database
 
-### The `lookup.py` program
+The REST API is accessible at `https://covid-ws-01.alcf.anl.gov/rpc`. It supports nine methods of the form `<from>2<to>`, where `<from>` is one of `[id, key, smiles]`, `<to>` is one of `[id, inchi, key, smiles]`, and `<from>`!=`<to>`, and:
+* `id` is an identifier used in the nCoV database, which have the form XXX:ident, where XXX is the source name (as listed at https://2019-ncovgroup.github.io/data/) and ident is an identifier used by that source.
+* `inchi` is an InChI
+* `key` is an InChIKey
+* `smiles` is a SMILES
+
+### Accessing the REST API via `curl`
+
+You can use the REST API directly, for example via `curl`:
+```
+curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --insecure
+```
+and receive the response as a string containing a list of zero or more "output":<value> pairs. Or you can use the `lookup.py` program, described next.
+
+### Accessing the nCoV database via the `lookup.py` program
 
 The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
 ```
