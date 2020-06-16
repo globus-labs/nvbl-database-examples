@@ -63,7 +63,7 @@ curl --header "Content-Type: application/json"   --request POST   --data '{"emai
 ```
 You then store the token in your environment as follows:
 ```
-setenv TOKEN=<long-token-string>
+export TOKEN=<long-token-string>
 ```
 
 ### c) The `test_lookup.sh` shell script
