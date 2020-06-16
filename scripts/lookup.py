@@ -18,7 +18,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 authstr = os.environ.get('TOKEN')
 if authstr==None:
-    print('You must do: setenv TOKEN=<java-web-token>')
+    print('You must do:(linux) setenv TOKEN=<java-web-token>')
+    print('            (mac) export TOKEN=<java-web-token>')
     exit(1)
 
 source = sys.argv[1]
