@@ -29,7 +29,7 @@ Then, you can, for example ask what identifier(s) are record for the SMILES `'C'
 ```
 curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --insecure
 ```
-The response is a string containing a list of zero or more "output":<value> pairs: in this case, as there are four entries in the CoV database for the SMILES `C`, the following four identifiers:
+The response is a string containing a list of zero or more "output":<value> pairs: in this case, as there are five entries in the CoV database for the SMILES `C`, the following five identifiers:
 ```
  [{"output":"chm:CHEMBL17564"}, 
  {"output":"g13:1"}, 
@@ -50,7 +50,7 @@ It writes to standard output a list of zero-or-more entities found in the CoV da
 ```
 python lookup.py smiles id C
 ```
-returns four identifiers, indicating that there are four entries in the CoV database for the SMILES `C`:
+returns five identifiers, indicating that there are five entries in the CoV database for the SMILES `C`:
 ```
 ['chm:CHEMBL17564', 'g13:1', 'mcu:MCULE-1431015236', 'pch:PC-281', 'qm9:1']
 ```
