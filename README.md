@@ -2,7 +2,7 @@
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
-![](https://github.com/globus-labs/nvbtl-database-examples/blob/master/nCoV.jpg)
+![](https://github.com/globus-labs/nvbtl-database-examples/blob/master/img/nCoV.jpg)
 
 ## 1) REST API access to the nCoV database
 
