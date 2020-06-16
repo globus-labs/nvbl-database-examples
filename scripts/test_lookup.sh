@@ -1,0 +1,28 @@
+#
+echo -n "Key=VNWKTOKETHGBQD-UHFFFAOYSA-N, SMILES="
+python lookup.py key smiles "VNWKTOKETHGBQD-UHFFFAOYSA-N"
+echo -n "Key=VNWKTOKETHGBQD-UHFFFAOYSA-N, Id(s)="
+python lookup.py key id "VNWKTOKETHGBQD-UHFFFAOYSA-N"
+echo -n "Key=VNWKTOKETHGBQD-UHFFFAOYSA-N, InChI="
+python lookup.py key inchi "VNWKTOKETHGBQD-UHFFFAOYSA-N"
+
+echo -n "SMILES=C, Key="
+python lookup.py smiles key "C"
+echo -n "SMILES=C, Id(s)="
+python lookup.py smiles id "C"
+echo -n "SMILES=C, InChI="
+python lookup.py smiles inchi "C"
+
+echo -n "Id=g13:1, SMILES="
+python lookup.py id smiles "g13:1"
+echo -n "Id=g13:1, InChI="
+python lookup.py id inchi "g13:1"
+echo -n "Id=g13:1, Key="
+python lookup.py id key "g13:1"
+
+echo -n "InChI=1S/CH4/h1H4, SMILES="
+python lookup.py inchi smiles  "InChI=1S/CH4/h1H4"
+echo -n "InChI=1S/CH4/h1H4, Key="
+python lookup.py inchi key  "InChI=1S/CH4/h1H4"
+echo -n "InChI=1S/CH4/h1H4, Id(s)="
+python lookup.py inchi id "InChI=1S/CH4/h1H4"
