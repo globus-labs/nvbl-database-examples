@@ -90,10 +90,11 @@ The nCoV database contains the following tables.
 * 1 table that gives the number of occurrences for any SMILES with >1 occurence in the dataset:
   * `counts(md5, count)`
  
-* 28 tables for mapping from (source, identifier) pairs to (file, line-number) pairs within the computed data to be found at https://2019-ncovgroup.github.io/data/ (with XXX being, again, a three-letter source label):
+* 46 tables for mapping from (source, identifier) pairs to (file, line-number) pairs within the computed data to be found at https://2019-ncovgroup.github.io/data/ (with XXX being, again, a three-letter source label):
   * `XXX_fp_location(identifier, filename, line-number)`
   * `XXX_de_location(identifier, filename, line-number)`
   
+Note: One source is missing, we need to work out which.
   
 ## 3) Acknowlegdments
 
