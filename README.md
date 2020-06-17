@@ -79,20 +79,26 @@ psql -h covid-db-01.fst.alcf.anl.gov -U USERID -p 5432 -d emolecules
 
 ### Tables
 
-The nCoV database contains the following tables.
+The nCoV database contains the following tables, with a * by a field meaning that it is indexed.
 
 * Four tables for navigating among the ~4.2B entries obtained from the 24 sources listed at https://2019-ncovgroup.github.io/data/, with `id` being a unique per-table number; `md5` = `md5(smiles)`; `smi` a SMILES string; `ide` an identifier, in the form `XXX:identifier` (`XXX` being a three-letter source label, as defined at the web site); `key` an InChIkey; and `inc` an InChI.
-  * `m2s(id, md5, smi)`
-  * `m2i(id, md5, ide)`
-  * `m2k(id, md5, key)`
-  * `k2n(id, key, inc)`
+  * `m2s(id, md5*, smi)`
+  * `m2i(id, md5*, ide*)`
+  * `m2k(id, md5*, key*)`
+  * `k2n(id, key*, inc)`
+  
+These are not de-duplicated, so if you call, for example: 
+```
+select count(*), count(distinct md5), count(distinct ide) from m2i;
+```
+you will find that **TBD**.
 
 * 1 table that gives the number of occurrences for any SMILES with >1 occurence in the dataset:
-  * `counts(md5, count)`
+  * `counts(md5*, count*)`
  
 * 46 tables for mapping from (source, identifier) pairs to (file, line-number) pairs within the computed data to be found at https://2019-ncovgroup.github.io/data/ (with XXX being, again, a three-letter source label):
-  * `XXX_fp_location(identifier, filename, line-number)`
-  * `XXX_de_location(identifier, filename, line-number)`
+  * `XXX_fp_location(identifier*, filename, line-number)`
+  * `XXX_de_location(identifier*, filename, line-number)`
   
 Note: One source is missing, we need to work out which.
   
