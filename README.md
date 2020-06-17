@@ -72,7 +72,10 @@ The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combin
 
 ## 2) Direct access to the nCoV database
 
-Some people with access to ALCF computers can access the nCoV database directly. 
+Authorized individuals with access to ALCF computers can access the nCoV database directly from Theta or Cooley login nodes via 
+```
+psql -h covid-db-01.fst.alcf.anl.gov -U USERID -p 5432 -d emolecules
+```
 
 ### Tables
 
