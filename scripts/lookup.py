@@ -16,11 +16,11 @@ if (len(sys.argv) != 4):
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-authstr = os.environ.get('TOKEN')
-if authstr==None:
-    print('You must do:(linux) setenv TOKEN=<java-web-token>')
-    print('            (mac) export TOKEN=<java-web-token>')
-    exit(1)
+#authstr = os.environ.get('TOKEN')
+#if authstr==None:
+#    print('You must do:(linux) setenv TOKEN=<java-web-token>')
+#    print('            (mac) export TOKEN=<java-web-token>')
+#    exit(1)
 
 source = sys.argv[1]
 dest   = sys.argv[2]
@@ -52,7 +52,7 @@ if source=='inchi':
 
 urlstr=f'https://covid-ws-01.alcf.anl.gov/rpc/{source}2{dest}'
 data = urllib.parse.urlencode({'input':param})
-req = urllib.request.Request(urlstr, data.encode('ascii'), {'Authorization': 'Bearer %s'%authstr})
+req = urllib.request.Request(urlstr, data.encode('ascii')) # {'Authorization': 'Bearer %s'%authstr})
 try: response = urllib.request.urlopen(req).read()
 except urllib.error.URLError as e:
     print(e.reason)
