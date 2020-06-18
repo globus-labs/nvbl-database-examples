@@ -16,18 +16,9 @@ You can use the REST API directly (e.g., via `curl`) or via the Python program `
 
 ### a) Accessing the nCoV database via `curl`
 
-You first need to obtain a JWT token, e.g. as follows (you must have a USERID and PASSWORD):
+To ask what identifier(s) are record for the SMILES `'C'`:
 ```
-curl --header "Content-Type: application/json"   --request POST   --data '{"email":"USERID", "pass":"PASSWORD"}' https://covid-ws-01.alcf.anl.gov/rpc/login --insecure
-```
-and store the token in a Bash shell variable:
-```
-TOKEN=<long-token-string>
-```
-
-Then, you can, for example ask what identifier(s) are record for the SMILES `'C'`:
-```
-curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --insecure
+curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Content-Type: application/json"
 ```
 The response is a string containing a list of zero or more "output":<value> pairs: in this case, as there are five entries in the CoV database for the SMILES `C`, the following five identifiers:
 ```
@@ -55,16 +46,6 @@ returns five identifiers, indicating that there are five entries in the CoV data
 ['chm:CHEMBL17564', 'g13:1', 'mcu:MCULE-1431015236', 'pch:PC-281', 'qm9:1']
 ```
 Symmetrically, a call to `python lookup.py id smiles pch:PC-281` returns one SMILES, `['C']`.
-
-Before running the program, you need to create a JWT Token (which must be periodically renewed) and store it in your environment. As above, you generate the token as follows:
-
-```
-curl --header "Content-Type: application/json"   --request POST   --data '{"email":"USERID", "pass":"PASSWORD"}' https://covid-ws-01.alcf.anl.gov/rpc/login --insecure
-```
-You then store the token in your environment as follows:
-```
-setenv TOKEN=<long-token-string>
-```
 
 ### c) The `test_lookup.sh` shell script
 
