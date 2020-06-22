@@ -16,18 +16,9 @@ You can use the REST API directly (e.g., via `curl`) or via the Python program `
 
 ### a) Accessing the nCoV database via `curl`
 
-You first need to obtain a JWT token, e.g. as follows (you must have a USERID and PASSWORD):
+To ask what identifier(s) are record for the SMILES `'C'`:
 ```
-curl --header "Content-Type: application/json"   --request POST   --data '{"email":"USERID", "pass":"PASSWORD"}' https://covid-ws-01.alcf.anl.gov/rpc/login --insecure
-```
-and store the token in a Bash shell variable:
-```
-TOKEN=<long-token-string>
-```
-
-Then, you can, for example ask what identifier(s) are record for the SMILES `'C'`:
-```
-curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --insecure
+curl https://covid-ws-01.alcf.anl.gov/rpc/smiles2id --request POST --data '{"input":"C"}' -H "Content-Type: application/json"
 ```
 The response is a string containing a list of zero or more "output":<value> pairs: in this case, as there are five entries in the CoV database for the SMILES `C`, the following five identifiers:
 ```
@@ -81,26 +72,34 @@ psql -h covid-db-01.fst.alcf.anl.gov -U USERID -p 5432 -d emolecules
 
 The nCoV database contains the following tables, with a * by a field meaning that it is indexed.
 
-* Four tables for navigating among the ~4.2B entries obtained from the 24 sources listed at https://2019-ncovgroup.github.io/data/, with `id` being a unique per-table number; `md5` = `md5(smiles)`; `smi` a SMILES string; `ide` an identifier, in the form `XXX:identifier` (`XXX` being a three-letter source label, as defined at the web site); `key` an InChIkey; and `inc` an InChI.
-  * `m2s(id, md5*, smi)`
-  * `m2i(id, md5*, ide*)`
-  * `m2k(id, md5*, key*)`
-  * `k2n(id, key*, inc)`
-  
-These are not de-duplicated, so if you call, for example: 
-```
-select count(*), count(distinct md5), count(distinct ide) from m2i;
-```
-you will find that **TBD**.
+* Four tables for navigating among the ~4.2B entries obtained from the 24 sources listed at https://2019-ncovgroup.github.io/data/, with `id` being a unique per-table number; `md5` = `md5(smiles)` (i.e., the MD5 hash of the SMILES string); `smi` a canonicalized SMILES string; `ide` an identifier, in the form `XXX:identifier` (`XXX` being a three-letter source label, as defined at the web site); `key` an InChIkey; and `inc` an InChI.
+  * `m2s(id, md5, smi)`
+  * `m2i(id, md5, ide)`
+  * `m2k(id, md5, key)`
+  * `k2n(id, key, inc)`
 
 * 1 table that gives the number of occurrences for any SMILES with >1 occurence in the dataset:
   * `counts(md5*, count*)`
  
 * 46 tables for mapping from (source, identifier) pairs to (file, line-number) pairs within the computed data to be found at https://2019-ncovgroup.github.io/data/ (with XXX being, again, a three-letter source label):
-  * `XXX_fp_location(identifier*, filename, line-number)`
-  * `XXX_de_location(identifier*, filename, line-number)`
+  * `XXX_fp_location(identifier, filename, line-number)`
+  * `XXX_de_location(identifier, filename, line-number)`
   
-Note: One source is missing, we need to work out which.
+Note that the `m2i`, `m2s`, etc., tables includes various duplicates. For example:
+ 
+```
+select count(distinct id), count(distinct md5), count(distinct ide) from m2i;
+4207033824 | 3865672599 | 4206933842
+```
+That is, the 4.2B entries in `m2i` correspond to only 3.9B unique SMILES; this is because some SMILES map to >1 identifier, as detailed in the `counts` table. Furthermore, there are 4207033824-4206933842=99982 fewer identifiers than entries; this is because a few identifiers map to >1 SMILES (the reason seems to be isomers). 
+
+We also find that the number of unique InChiKeys is 27,438,472 less than the number of SMILES:
+```
+select count(distinct id), count(distinct md5), count(distinct key) from m2k;
+4207033824 | 3865672599 | 3838234127
+```
+This is because we do not have an InChI for every SMILES.
+  
   
 ## 3) Acknowlegdments
 
