@@ -2,7 +2,7 @@
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
-![](./img/nCoV.jpg)
+![](https://github.com/globus-labs/nvbtl-database-examples/blob/master/nCoV.jpg)
 
 ## 1) REST API access to the nCoV database
 
@@ -41,7 +41,7 @@ The response is a string containing a list of zero or more "output":<value> pair
 
 ### b) Accessing the nCoV database via the `lookup.py` program
 
-The program `/scripts/lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
+The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
 ```
 python lookup.py <from> <to> <from-entity>
 ```
@@ -54,7 +54,7 @@ returns five identifiers, indicating that there are five entries in the CoV data
 ```
 ['chm:CHEMBL17564', 'g13:1', 'mcu:MCULE-1431015236', 'pch:PC-281', 'qm9:1']
 ```
-Symmetrically, a call to `python lookup.py id smiles pch:PC-281` returns one SMILES, `['C']`.
+Symmetrically, a call `python lookup.py id smiles pch:PC-281` returns one SMILES, `['C']`.
 
 Before running the program, you need to create a JWT Token (which must be periodically renewed) and store it in your environment. As above, you generate the token as follows:
 
@@ -68,7 +68,7 @@ setenv TOKEN=<long-token-string>
 
 ### c) The `test_lookup.sh` shell script
 
-The shell script `/scripts/test_lookup.sh` runs `/scripts/lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
+The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
 ## 2) Direct access to the nCoV database
 
