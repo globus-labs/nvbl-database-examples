@@ -29,7 +29,6 @@ The response is a string containing a list of zero or more "output":<value> pair
  {"output":"qm9:1"}]
 ```
 
-
 ### b) Accessing the nCoV database via the `lookup.py` program
 
 The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
@@ -99,8 +98,33 @@ select count(distinct id), count(distinct md5), count(distinct key) from m2k;
 4207033824 | 3865672599 | 3838234127
 ```
 This is because we do not have an InChI for every SMILES.
+
+
+## 3) Some Code Examples
+
+### Example: Find Ids in a file `NCATS_Spike_ACE2_inhibition.tsv` downloaded from NCATS, for which the 21st Column is a SMILES
+
+1) Extract SMILESs from NCAT input file
+
+```
+        awk -F "\t" '{print $21}' NCATS_Spike_ACE2_inhibition.tsv > ~/data/ncat_smiles.smi
+```
+
+2) Canonicalize, with a version of `canonicalize.py` that does NOT remove duplicates (as we want to have one output for each row in input CSV file)
+
+```
+        python canonicalize.py -f ~/data/ncat_smiles.smi -o ~/data/Output
+```
+
+3) Lookup
+
+```
+        python lookup_all.py smiles id file Output/can_smiles-0.smi > ~/data/ncat_smiles_locations.tsv
+```
+
+4) Append new columns to `NCATS_Spike_ACE2_inhibition.csv` as two extra columns.
   
   
-## 3) Acknowlegdments
+## 4) Acknowlegdments
 
 Thanks to Ben Lenard, Doug Waldron, and Skip Reddy for much help with the nCoV database.
