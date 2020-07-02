@@ -1,8 +1,8 @@
-# NVBTL Database Examples
+# NVBL Database Examples
 
 This repository contains programs for using the REST API to access the nCoV Postgres database. 
 
-![](https://github.com/globus-labs/nvbtl-database-examples/blob/master/nCoV.jpg)
+![](https://github.com/globus-labs/nvbl-database-examples/blob/master/nCoV.jpg)
 
 ## 1) REST API access to the nCoV database
 
@@ -12,7 +12,33 @@ The REST API, accessible at `https://covid-ws-01.alcf.anl.gov/rpc`, supports nin
 * `key` is an InChIKey
 * `smiles` is a SMILES
 
-You can use the REST API directly (e.g., via `curl`) or via the Python program `lookup.py`. 
+You can use theREST API client, the REST API directly (e.g., via `curl`) or via the Python script `lookup.py`. 
+### a) Accessing the nCoV database via the client
+Install the NVBL Client by calling `pip install -e .` from within this repository.
+
+```python
+from nvbl_client import NVBLClient
+
+cl = NVBLClient()
+res = cl.search_all('smiles', 'CCC(COC(=O)C(NP(=O)(Oc1ccccc1)OCC1OC(C(C1O)O)(C#N)c1ccc2n1ncnc2N)C)CC')
+res
+```
+
+```json
+{'key': ['RWWYLEGWBNMMLJ-UHFFFAOYSA-N'],
+ 'inchi': ['InChI=1S/C27H35N6O8P/c1-4-18(5-2)13-38-26(36)17(3)32-42(37,41-19-9-7-6-8-10-19)39-14-21-23(34)24(35)27(15-28,40-21)22-12-11-20-25(29)30-16-31-33(20)22/h6-12,16-18,21,23-24,34-35H,4-5,13-14H2,1-3H3,(H,32,37)(H2,29,30,31)'],
+ 'id': ['lit:LIT-1',
+  'lit:LIT-110',
+  'lit:LIT-476',
+  'lit:LIT-503',
+  'lit:LIT-558',
+  'lit:LIT-578',
+  'lit:LIT-607',
+  'lit:LIT-689',
+  'lit:LIT-715',
+  'lit:LIT-94',
+  'pch:PC-46676083']}
+  ```
 
 ### a) Accessing the nCoV database via `curl`
 
