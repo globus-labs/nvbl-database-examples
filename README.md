@@ -16,6 +16,7 @@ You can use theREST API client, the REST API directly (e.g., via `curl`) or via 
 ### a) Accessing the nCoV database via the client
 Install the NVBL Client by calling `pip install -e .` from within this repository.
 
+Example Usage:
 ```python
 from nvbl_client import NVBLClient
 
@@ -24,6 +25,7 @@ res = cl.search_all('smiles', 'CCC(COC(=O)C(NP(=O)(Oc1ccccc1)OCC1OC(C(C1O)O)(C#N
 res
 ```
 
+Return Value:
 ```json
 {
 	"key": ["RWWYLEGWBNMMLJ-UHFFFAOYSA-N"],
@@ -43,7 +45,7 @@ res
 }
   ```
 
-### a) Accessing the nCoV database via `curl`
+### b) Accessing the nCoV database via `curl`
 
 To ask what identifier(s) are record for the SMILES `'C'`:
 ```
@@ -59,7 +61,7 @@ The response is a string containing a list of zero or more "output":<value> pair
 ```
 
 
-### b) Accessing the nCoV database via the `lookup.py` program
+### c) Accessing the nCoV database via the `lookup.py` program
 
 The program `lookup.py` allows access to the Postgres database tables via the Postgrest API. It is called as follows:
 ```
@@ -86,7 +88,7 @@ You then store the token in your environment as follows:
 export TOKEN=<long-token-string>
 ```
 
-### c) The `test_lookup.sh` shell script
+### d) The `test_lookup.sh` shell script
 
 The shell script `test_lookup.sh` runs `lookup.py` for each non-identical combination of (id,inchi,key,smiles)x(id,inchi,key,smiles).
 
