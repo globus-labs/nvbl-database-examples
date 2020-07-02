@@ -2,6 +2,7 @@ import os
 import urllib
 import json
 import requests
+from copy import deepcopy
 
 
 class NVBLClient:
@@ -13,6 +14,18 @@ class NVBLClient:
         Init function, currently does nothing
         """
         super().__init__(**kwargs)
+
+    def search_all(self, source, param):
+        dests = deepcopy(self._valid_fields)
+        dests.remove(source)
+
+        results = {}
+        for d in dests:
+            try:
+                results[d] = self.search(source, d, param)
+            except Exception as e:
+                print(e)
+        return results
 
     def search(self, source, dest, param):
         """
@@ -48,3 +61,10 @@ class NVBLClient:
         results = json.loads(response.decode("ascii"))
         outputs = [v for d in results for k, v in d.items()]
         return outputs
+
+    def request(self, endpoint):
+        urlstr = f"{self.service_location}/{endpoint}"
+        print(urlstr)
+        r = requests.get(urlstr)
+        return r.json()
+
